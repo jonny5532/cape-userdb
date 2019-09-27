@@ -21,10 +21,15 @@ from typing import List, Union, Any
 from pytz import utc
 from peewee import DateTimeField, BlobField, Model, CharField
 
-from cape_userdb.cape_userdb_settings import DB_PATH
-from peewee import SqliteDatabase
+from cape_userdb.cape_userdb_settings import DB_TYPE, DB_PATH, DB_NAME, DB_USER, DB_PASS, DB_HOST, DB_PORT
+from peewee import SqliteDatabase, MySQLDatabase
 
-DB = SqliteDatabase(DB_PATH)
+if DB_TYPE=="sqlite":
+    DB = SqliteDatabase(DB_PATH)
+elif DB_TYPE=="mysql":
+    DB = MySQLDatabase(DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST, port=int(DB_PORT))
+else:
+    raise Exception("Unknown value for CAPE_USERDB_DATABASE_TYPE!")
 
 _COMPRESSION_LEVEL = 9
 _PROTOCOL_LEVEL = pickle.HIGHEST_PROTOCOL

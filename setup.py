@@ -28,6 +28,7 @@ setup(
         'peewee==3.5.2',
         'pytest==3.6.4',
         'pytz==2017.2',
+        'mysqlclient==1.4.2.post1'
     ],
     package_data={
         '': ['*.*'],
